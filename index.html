@@ -1,147 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Collins Kiprotich – Software Engineer Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
-  body { background:#f8f9fa; color:#333; line-height:1.6; transition:.4s; }
-  :root {
-    --primary:#1a73e8;
-    --accent:#ffb703;
-    --dark-bg:#0f0f0f;
-    --dark-card:#1a1a1a;
-    --light-card:#fff;
-  }
-  body.dark { background:var(--dark-bg); color:#eee; }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto',sans-serif; }
+  body { line-height:1.6; color:#333; background:#f9f9f9; transition:0.3s; }
+  a { text-decoration:none; color:#1a73e8; }
+  a:hover { text-decoration:underline; }
 
-  header {
-    padding:80px 20px; text-align:center;
-    background:linear-gradient(135deg,#1a73e8,#4dabf7);
-    color:#fff;
-  }
-  .hero-img img {
-    width:150px; height:150px; border-radius:50%; object-fit:cover;
-    border:4px solid #fff;
-  }
-  h1 { font-size:2.8rem; margin-top:20px; font-weight:700; }
-  .typing { font-size:1.2rem; margin-top:10px; height:24px; }
+  /* Preloader */
+  #preloader { position:fixed; top:0; left:0; width:100%; height:100%; background:#1a73e8; display:flex; justify-content:center; align-items:center; z-index:9999; transition:0.5s; }
+  .preloader-circle { width:180px;height:180px;border-radius:50%; display:flex; justify-content:center; align-items:center; background: conic-gradient(black 0% 25%, red 25% 50%, green 50% 75%, white 75% 100%); animation: rotate 2s linear infinite; }
+  @keyframes rotate {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+  .preloader-circle span { color:#fff; font-size:1.3rem; font-weight:bold; position:relative; z-index:1; display:flex; }
+  .preloader-circle span .letter { display:inline-block; animation:bounce 1.2s infinite; }
+  @keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);} }
+  body.loading{overflow:hidden;}
 
-  nav {
-    margin-top:25px;
-    display:flex; justify-content:center; gap:25px;
-    flex-wrap:wrap;
-  }
-  nav a {
-    color:#fff; font-weight:600; position:relative;
-  }
-  nav a::after{
-    content:""; position:absolute; bottom:-3px; left:0;
-    width:0%; height:2px; background:var(--accent);
-    transition:.3s;
-  }
-  nav a:hover::after{ width:100%; }
+  /* Container */
+  .container { width:90%; max-width:1000px; margin:auto; padding:20px 0; }
 
-  .container { width:90%; max-width:1100px; margin:auto; padding:50px 0; }
+  /* Header */
+  header { background:#1a73e8; color:#fff; padding:60px 20px; text-align:center; position:relative; }
+  .header-container { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:30px; }
+  .header-photo, .header-text h1, .header-text p, .header-text nav, .download-cv { opacity:0; transform:translateY(20px); transition:all 1s ease; }
+  .fade-in { opacity:1 !important; transform:translateY(0) !important; }
+  .header-photo img { width:150px; height:150px; border-radius:50%; object-fit:cover; border:4px solid #fff; }
+  .header-text h1 { font-size:2.5rem; margin-bottom:10px; }
+  .header-text p { font-size:1.2rem; margin-bottom:20px; }
 
-  section h2 { font-size:2rem; display:inline-block; margin-bottom:20px;
-    border-bottom:3px solid var(--primary); padding-bottom:5px;
+  nav a { margin:0 15px; color:#fff; font-weight:500; transition:0.3s; }
+  nav a.active { color:#ffdd57; font-weight:bold; }
+  nav a:hover { color:#ffdd57; }
+
+  /* CV Dropdown */
+  .download-cv { position:relative; display:inline-block; margin-top:15px; }
+  .cv-btn { padding:10px 20px; background:#ffdd57; color:#333; font-weight:bold; border-radius:5px; cursor:pointer; border:none; }
+  .cv-btn:hover { background:#1a73e8; color:#fff; }
+  
+  .cv-dropdown {
+    display:none;
+    position:absolute;
+    background:#fff;
+    border-radius:6px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    overflow:hidden;
+    width:160px;
+    text-align:left;
+    margin-top:5px;
+    z-index:2000;
   }
 
-  .about-box { background:var(--light-card); padding:25px; border-radius:10px;
-    box-shadow:0 4px 15px rgba(0,0,0,.1);
+  .cv-dropdown a {
+    display:block;
+    padding:10px 15px;
+    color:#333;
+    font-size:0.9rem;
   }
-  body.dark .about-box { background:var(--dark-card); }
+  .cv-dropdown a:hover { background:#f2f2f2; }
+
+  /* Sections */
+  section { padding:60px 0; }
+  section h2 { font-size:2rem; margin-bottom:20px; border-bottom:2px solid #1a73e8; display:inline-block; padding-bottom:5px; }
 
   /* Skills */
-  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
-  .skill-card { background:var(--light-card); padding:20px; border-radius:10px; text-align:center;
-    box-shadow:0 4px 12px rgba(0,0,0,.1); transition:.3s;
-  }
-  body.dark .skill-card { background:var(--dark-card); }
-  .skill-card:hover { transform:translateY(-5px); }
-  .skill-card span { display:block; font-size:2rem; margin-bottom:10px; }
+  .skills-grid { display:flex; flex-wrap:wrap; gap:20px; justify-content:center; }
+  .skill-chart { position:relative; width:120px; height:120px; }
+  .skill-chart svg { transform:rotate(-90deg); width:120px; height:120px; }
+  .skill-chart circle { fill:none; stroke:#eee; stroke-width:10; }
+  .skill-chart circle:nth-child(2) { stroke:#1a73e8; stroke-dasharray:314; stroke-dashoffset:314; transition:stroke-dashoffset 1.5s ease; }
+  .skill-label { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:bold; text-align:center; }
 
   /* Projects */
-  .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:25px; }
-  .project-card { background:var(--light-card); padding:20px; border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,.1); transition:.3s; cursor:pointer;
-  }
-  body.dark .project-card { background:var(--dark-card); }
-  .project-card:hover { transform:translateY(-7px); }
-  .project-card h3 { color:var(--primary); }
-  .badge-group { margin-top:10px; }
-  .badge {
-    display:inline-block; padding:5px 10px; background:var(--primary);
-    color:#fff; border-radius:5px; margin:5px 3px; font-size:.8rem;
-  }
+  .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+  .project-card { background:#fff; padding:20px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition:0.3s; }
+  .project-card:hover { transform:translateY(-5px); box-shadow:0 6px 15px rgba(0,0,0,0.2); }
+  .project-card h3 { margin-bottom:10px; color:#1a73e8; }
+  .project-card a { margin-right:10px; font-weight:bold; color:#1a73e8; transition:0.3s; }
+  .project-card a:hover { color:#ffdd57; }
 
   /* Contact */
-  .contact-form { max-width:500px; margin:auto; display:flex; flex-direction:column; gap:15px; }
-  .contact-form input, .contact-form textarea {
-    padding:12px; border-radius:8px; border:1px solid #ccc;
-  }
-  body.dark input, body.dark textarea { background:#222; color:#fff; border:1px solid #555; }
-  .contact-form button {
-    padding:12px; background:var(--primary); color:#fff; border:none;
-    border-radius:8px; cursor:pointer; font-weight:600;
-  }
+  .contact-form { display:flex; flex-direction:column; gap:10px; max-width:500px; margin:auto; }
+  .contact-form input, .contact-form textarea { padding:10px; border-radius:5px; border:1px solid #ccc; width:100%; }
+  .contact-form button { padding:10px 15px; background:#1a73e8; color:#fff; border:none; border-radius:5px; cursor:pointer; transition:0.3s; }
+  .contact-form button:hover { background:#ffdd57; color:#333; }
 
-  footer { text-align:center; padding:25px 0; background:#111; color:#fff; margin-top:50px; }
+  /* Footer */
+  footer { text-align:center; padding:20px 0; background:#333; color:#fff; }
 
-  #themeToggle {
-    position:fixed; right:25px; bottom:25px;
-    background:var(--primary); color:#fff; border:none;
-    padding:10px 15px; border-radius:50%; font-size:18px;
-    cursor:pointer; z-index:2000;
+  /* Back to Top */
+  #backToTop { position:fixed; bottom:30px; right:30px; background:#1a73e8; color:#fff; border:none; padding:10px 15px; border-radius:50%; cursor:pointer; display:none; font-size:18px; z-index:100; transition:0.3s; }
+  #backToTop:hover { background:#ffdd57; color:#333; }
+
+  /* Dark Mode */
+  .dark-mode { background:#111; color:#eee; }
+  .dark-mode header { background:#222; }
+  .dark-mode .skill-chart circle:nth-child(2) { stroke:#ffdd57; }
+  .dark-mode .project-card { background:#222; color:#eee; }
+  .dark-mode footer { background:#111; color:#eee; }
+
+  @media(max-width:600px){
+    .header-container { flex-direction:column; text-align:center; }
+    .header-photo img { width:120px; height:120px; }
+    .header-text h1 { font-size:2rem; }
+    .header-text p { font-size:1rem; }
+    nav a { display:block; margin:10px 0; }
   }
-
 </style>
 </head>
 
-<body>
+<body class="loading">
 
-<header data-aos="fade-down">
-  <div class="hero-img">
-    <img src="images/collo.jpg" alt="Collins Kiprotich" />
+<!-- Preloader -->
+<div id="preloader">
+  <div class="preloader-circle">
+    <span id="preloader-text"></span>
   </div>
+</div>
 
-  <h1>Collins Kiprotich</h1>
-  <div class="typing" id="typing"></div>
+<header>
+  <div class="container header-container">
+    <div class="header-photo">
+      <img src="images/collo.jpg" alt="Collins Kiprotich">
+    </div>
+    <div class="header-text">
+      <h1>Collins Kiprotich</h1>
+      <p>Software Engineer | Web Developer | AI & Data Enthusiast</p>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
-  </nav>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <!-- NEW CV DROPDOWN -->
+      <div class="download-cv">
+        <button class="cv-btn">Download CV ▼</button>
+        <div class="cv-dropdown">
+          <a href="files/Collins_Kiprotich_CV.pdf" download>Download PDF</a>
+          <a href="files/Collins_Kiprotich_CV.docx" download>Download Word</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </header>
 
-<div class="container">
+<main class="container">
 
   <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
-    <div class="about-box">
-      <p>
-        I’m a Software Engineer specializing in backend development, web systems,
-        and data-driven solutions. Passionate about building scalable applications,
-        API integrations, and clean, user-focused systems.
-      </p>
-    </div>
+    <p>I am a Software Engineer with a BSc in Software Engineering. I specialize in web development, database design, and data-driven applications. Passionate about creating scalable solutions and optimizing workflows.</p>
   </section>
 
   <section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
     <div class="skills-grid">
-      <div class="skill-card" data-aos="zoom-in"><span>🟦</span>HTML & CSS</div>
-      <div class="skill-card" data-aos="zoom-in"><span>🟨</span>JavaScript</div>
-      <div class="skill-card" data-aos="zoom-in"><span>🐘</span>PHP & Laravel</div>
-      <div class="skill-card" data-aos="zoom-in"><span>🗄️</span>MySQL & DB Design</div>
-      <div class="skill-card" data-aos="zoom-in"><span>📊</span>Data Analysis</div>
-      <div class="skill-card" data-aos="zoom-in"><span>⚙️</span>API Development</div>
+      <div class="skill-chart" data-percent="95">
+        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
+        <div class="skill-label">HTML</div>
+      </div>
+
+      <div class="skill-chart" data-percent="90">
+        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
+        <div class="skill-label">CSS</div>
+      </div>
+
+      <div class="skill-chart" data-percent="85">
+        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
+        <div class="skill-label">JavaScript</div>
+      </div>
+
+      <div class="skill-chart" data-percent="75">
+        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
+        <div class="skill-label">PHP</div>
+      </div>
     </div>
   </section>
 
@@ -151,30 +189,22 @@
 
       <div class="project-card">
         <h3>E-Recruitment Portal</h3>
-        <p>A complete digital HR recruitment system with authentication, CV management, and admin analytics.</p>
-        <div class="badge-group">
-          <span class="badge">Laravel</span>
-          <span class="badge">MySQL</span>
-          <span class="badge">Livewire</span>
-        </div>
+        <p>Digital portal with structured forms and MySQL backend for HR data collection.</p>
+        <a href="https://orpp-e-recruitment-portal-1-2uo4.onrender.com/" target="_blank">View Project</a>
+        <a href="#" target="_blank">Code</a>
       </div>
 
       <div class="project-card">
         <h3>Customer Management System</h3>
-        <p>Centralized customer records, reporting, and activity tracking dashboard.</p>
-        <div class="badge-group">
-          <span class="badge">PHP</span>
-          <span class="badge">MySQL</span>
-        </div>
+        <p>MySQL-based system for customer data tracking and reporting.</p>
+        <a href="#" target="_blank">View Project</a>
+        <a href="#" target="_blank">Code</a>
       </div>
 
       <div class="project-card">
         <h3>Heart Disease Dataset Analysis</h3>
-        <p>Data preprocessing, validation, and statistical analysis for model testing.</p>
-        <div class="badge-group">
-          <span class="badge">Python</span>
-          <span class="badge">Pandas</span>
-        </div>
+        <p>Data cleaning, validation, and preparation for ML model testing.</p>
+        <a href="#" target="_blank">View Analysis</a>
       </div>
 
     </div>
@@ -183,252 +213,118 @@
   <section id="contact" data-aos="fade-up">
     <h2>Contact</h2>
     <form class="contact-form">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Your Email" required />
-      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
       <button type="submit">Send Message</button>
     </form>
   </section>
 
-</div>
+</main>
 
 <footer>
-  © 2025 Collins Kiprotich – All Rights Reserved
+  <p>&copy; 2025 Collins Kiprotich</p>
 </footer>
 
-<button id="themeToggle">🌙</button>
+<button id="backToTop">↑</button>
+<button id="themeToggle" style="position:fixed;bottom:30px;left:30px;background:#1a73e8;color:#fff;border:none;padding:10px 15px;border-radius:50%;cursor:pointer;z-index:100;">🌙</button>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-AOS.init({ duration:900, once:true });
-
-// Typing effect
-const roles = ["Software Engineer","Web Developer","Backend Specialist","Data Enthusiast"];
-let idx = 0, char = 0;
-function type(){
-  const current = roles[idx];
-  document.getElementById("typing").textContent = current.slice(0, char);
-  char++;
-  if(char > current.length){ setTimeout(()=>{ char=0; idx=(idx+1)%roles.length; },1200); }
-  setTimeout(type,120);
-}
-type();
-
-// Theme toggle
-const toggle = document.getElementById("themeToggle");
-toggle.addEventListener("click",()=>{
-  document.body.classList.toggle("dark");
-  toggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-});
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-    body {
-      background: #f5f7fa;
-      color: #333;
-      line-height: 1.6;
-    }
-    header {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #4f46e5, #6366f1);
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-    }
-    header h1 { font-size: 3rem; margin-bottom: 10px; }
-    header .typing { font-size: 1.2rem; opacity: 0.9; }
-
-    section { padding: 60px 10%; }
-    .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 30px;
-      text-align: center;
-      color: #4f46e5;
-    }
-
-    /* Skills */
-    .skills-container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-    .skill-badge {
-      padding: 10px 18px;
-      background: #eef2ff;
-      color: #4338ca;
-      border-radius: 20px;
-      font-size: 0.9rem;
-      border: 1px solid #c7d2fe;
-      transition: 0.3s;
-    }
-    .skill-badge:hover { background: #c7d2fe; cursor: pointer; }
-
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-    .project-card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
-    .project-card:hover { transform: translateY(-5px); }
-    .project-card img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
-
-    /* Contact */
-    .contact-container {
-      max-width: 600px;
-      margin: auto;
-    }
-    .contact-container input, .contact-container textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    .contact-container button {
-      width: 100%;
-      padding: 12px;
-      background: #4f46e5;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #111827;
-      color: #fff;
-      margin-top: 40px;
-    }
-
-  </style>
-</head>
-<body>
-
-<header>
-  <div>
-    <h1>Hi, I'm Collins</h1>
-    <p class="typing" id="typing"></p>
-  </div>
-</header>
-
-<section>
-  <h2 class="section-title">About Me</h2>
-  <p>
-    I am a passionate backend & full-stack developer specializing in Laravel, PHP,
-    JavaScript, system architecture, and scalable system design. I love building
-    clean, functional, and high-performance applications.
-  </p>
-</section>
-
-<section>
-  <h2 class="section-title">Skills</h2>
-  <div class="skills-container">
-    <span class="skill-badge">Laravel</span>
-    <span class="skill-badge">PHP</span>
-    <span class="skill-badge">MySQL</span>
-    <span class="skill-badge">REST APIs</span>
-    <span class="skill-badge">JavaScript</span>
-    <span class="skill-badge">HTML/CSS</span>
-    <span class="skill-badge">Git</span>
-    <span class="skill-badge">Linux</span>
-    <span class="skill-badge">Docker</span>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Projects</h2>
-  <div class="projects-grid">
-
-    <div class="project-card">
-      <img src="https://via.placeholder.com/500x300" />
-      <h3>ORPP Recruitment Portal</h3>
-      <p>A full recruitment system including login, filtering, analytics, CSV/PDF export, ZIP downloads & admin dashboard.</p>
-      <p><strong>Stack:</strong> Laravel, MySQL, JS</p>
-    </div>
-
-    <div class="project-card">
-      <img src="https://via.placeholder.com/500x300" />
-      <h3>Analytics Dashboard</h3>
-      <p>Interactive dashboards for job applications, gender distribution, trends, and regional mapping.</p>
-      <p><strong>Stack:</strong> Laravel, Chart.js</p>
-    </div>
-
-    <div class="project-card">
-      <img src="https://via.placeholder.com/500x300" />
-      <h3>Laravel File Manager</h3>
-      <p>Document upload, viewing, and compression system used in large applications.</p>
-      <p><strong>Stack:</strong> Laravel, Storage APIs</p>
-    </div>
-
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Contact Me</h2>
-  <div class="contact-container">
-    <input type="text" id="name" placeholder="Your Name" />
-    <input type="email" id="email" placeholder="Your Email" />
-    <textarea id="message" rows="5" placeholder="Your Message"></textarea>
-    <button onclick="sendMessage()">Send Message</button>
-  </div>
-</section>
-
-<footer>
-  <p>© 2025 Collins | All Rights Reserved</p>
-  <div style="margin-top:10px;">
-    <a href="#"><i class="fab fa-github"></i></a>&nbsp;
-    <a href="#"><i class="fab fa-linkedin"></i></a>&nbsp;
-    <a href="mailto:collinskiprotich2018@gmail.com"><i class="fas fa-envelope"></i></a>
-  </div>
-</footer>
 
 <script>
-  const words = ["Full-Stack Developer", "Backend Developer", "Laravel Expert", "API Engineer", "System Architect"];
-  let i = 0, index = 0, current = "", letter = "";
+  AOS.init({ duration:1000 });
 
-  function type() {
-    if (i === words.length) i = 0;
-    current = words[i];
-    letter = current.slice(0, ++index);
-    document.getElementById("typing").textContent = letter;
-    if (letter.length === current.length) {
-      setTimeout(() => { index = 0; i++; }, 1500);
+  // Preloader letters
+  const name = "Collins Kiprotich";
+  const preloaderText = document.getElementById("preloader-text");
+  preloaderText.innerHTML = name
+    .split("")
+    .map((c,i)=>`<span class="letter" style="animation-delay:${i*0.1}s">${c}</span>`)
+    .join("");
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      const preloader = document.getElementById("preloader");
+      preloader.style.opacity = 0;
+      document.body.classList.remove("loading");
+      setTimeout(()=>preloader.style.display="none",500);
+
+      const headerElements = [
+        ".header-photo",
+        ".header-text h1",
+        ".header-text p",
+        ".header-text nav",
+        ".download-cv"
+      ];
+
+      headerElements.forEach((el,i)=> 
+        setTimeout(()=> document.querySelector(el).classList.add("fade-in"), 
+        100+i*300)
+      );
+
+    },2500);
+  });
+
+  // Back to Top
+  const btn = document.getElementById("backToTop");
+  window.onscroll = () => { btn.style.display = window.scrollY>300 ? "block":"none"; };
+  btn.onclick = () => window.scrollTo({top:0,behavior:"smooth"});
+
+  // Dark Mode
+  const themeToggle = document.getElementById("themeToggle");
+  themeToggle.onclick = () => document.body.classList.toggle("dark-mode");
+
+  // Scroll nav highlight
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav a");
+  window.addEventListener("scroll", () => {
+    let current="";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 80;
+      if(window.pageYOffset>=sectionTop) current=section.getAttribute("id");
+    });
+    navLinks.forEach(link=>link.classList.remove("active"));
+    navLinks.forEach(link=>{
+      if(link.getAttribute("href").includes(current))
+        link.classList.add("active");
+    });
+  });
+
+  // Skill animations
+  function animateSkills(){
+    document.querySelectorAll('.skill-chart').forEach(skill=>{
+      const circle = skill.querySelector('circle:nth-child(2)');
+      const percent = skill.getAttribute('data-percent');
+      const offset = 314 - (314*percent/100);
+      circle.style.strokeDashoffset = offset;
+    });
+  }
+
+  const skillsSection = document.getElementById('skills');
+  let skillsAnimated = false;
+
+  window.addEventListener('scroll', ()=>{
+    if(skillsAnimated) return;
+    const sectionTop = skillsSection.offsetTop - window.innerHeight + 100;
+    if(window.scrollY > sectionTop){ 
+      animateSkills(); 
+      skillsAnimated=true; 
     }
-    setTimeout(type, 120);
-  }
-  type();
+  });
 
-  function sendMessage() {
-    alert("Message feature coming soon.");
-  }
+  // CV Dropdown
+  document.querySelector(".cv-btn").addEventListener("click", () => {
+    const drop = document.querySelector(".cv-dropdown");
+    drop.style.display = drop.style.display === "block" ? "none" : "block";
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".download-cv")) {
+      document.querySelector(".cv-dropdown").style.display = "none";
+    }
+  });
+
 </script>
 
 </body>
