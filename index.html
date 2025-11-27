@@ -36,13 +36,15 @@
     justify-content:center;
     align-items:center;
     position:relative;
+    text-align:center;
   }
   .preloader-circle span {
     color:#fff;
     font-weight:bold;
-    font-size:0.9rem;
-    text-align:center;
+    font-size:0.8rem;
     position:absolute;
+    width:100px;
+    word-wrap: break-word;
   }
   .preloader-circle span .letter {
     display:inline-block;
@@ -229,9 +231,9 @@
 AOS.init({ duration:1000 });
 
 // Preloader animation text
-const name="Collins Software Engineer";
-const preloaderText=document.getElementById("preloader-text");
-preloaderText.innerHTML=name.split("").map((c,i)=>`<span class="letter" style="animation-delay:${i*0.1}s">${c}</span>`).join("");
+const loaderText = "Collins Software Engineer";
+const preloaderText = document.getElementById("preloader-text");
+preloaderText.innerHTML = loaderText.split("").map((c,i)=>`<span class="letter" style="animation-delay:${i*0.1}s">${c}</span>`).join("");
 
 // Hide preloader on load
 window.addEventListener("load",()=>{
