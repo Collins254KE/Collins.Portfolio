@@ -14,12 +14,42 @@
   a:hover { text-decoration:underline; }
 
   /* Preloader */
-  #preloader { position:fixed; top:0; left:0; width:100%; height:100%; background:#1a73e8; display:flex; justify-content:center; align-items:center; z-index:9999; transition:0.5s; }
-  .preloader-circle { width:180px;height:180px;border-radius:50%; display:flex; justify-content:center; align-items:center; background: conic-gradient(black 0% 25%, red 25% 50%, green 50% 75%, white 75% 100%); animation: rotate 2s linear infinite; }
-  @keyframes rotate {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-  .preloader-circle span { color:#fff; font-size:1.3rem; font-weight:bold; position:relative; z-index:1; display:flex; }
-  .preloader-circle span .letter { display:inline-block; animation:bounce 1.2s infinite; }
-  @keyframes bounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-15px);} }
+  #preloader {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:#1a73e8;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    overflow:hidden;
+  }
+  .preloader-circle {
+    width:100px;
+    height:100px;
+    border:8px solid rgba(255,255,255,0.2);
+    border-top:8px solid #fff;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+  }
+  .preloader-circle span {
+    color:#fff;
+    font-weight:bold;
+    font-size:0.9rem;
+    text-align:center;
+    position:absolute;
+  }
+  .preloader-circle span .letter {
+    display:inline-block;
+    animation:bounce 1.2s infinite;
+  }
+  @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
   body.loading{overflow:hidden;}
 
   /* Container */
@@ -197,24 +227,74 @@
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
 AOS.init({ duration:1000 });
-const name="Collins Kiprotich";
+
+// Preloader animation text
+const name="Collins Software Engineer";
 const preloaderText=document.getElementById("preloader-text");
 preloaderText.innerHTML=name.split("").map((c,i)=>`<span class="letter" style="animation-delay:${i*0.1}s">${c}</span>`).join("");
-window.addEventListener("load",()=>{setTimeout(()=>{const preloader=document.getElementById("preloader");preloader.style.opacity=0;document.body.classList.remove("loading");setTimeout(()=>preloader.style.display="none",500);const headerElements=[".header-photo",".header-text h1",".header-text p",".header-text nav",".download-cv"];headerElements.forEach((el,i)=>setTimeout(()=>document.querySelector(el).classList.add("fade-in"),100+i*300));},2500);});
+
+// Hide preloader on load
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    const preloader=document.getElementById("preloader");
+    preloader.style.opacity=0;
+    document.body.classList.remove("loading");
+    setTimeout(()=>preloader.style.display="none",500);
+
+    const headerElements=[".header-photo",".header-text h1",".header-text p",".header-text nav",".download-cv"];
+    headerElements.forEach((el,i)=>setTimeout(()=>document.querySelector(el).classList.add("fade-in"),100+i*300));
+  },1500);
+});
+
+// Back to top button
 const btn=document.getElementById("backToTop");
 window.onscroll=()=>{btn.style.display=window.scrollY>300?"block":"none";};
 btn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+
+// Dark mode toggle
 const themeToggle=document.getElementById("themeToggle");
 themeToggle.onclick=()=>document.body.classList.toggle("dark-mode");
+
+// Active nav links on scroll
 const sections=document.querySelectorAll("section");
 const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{let current="";sections.forEach(section=>{const sectionTop=section.offsetTop-80;if(window.pageYOffset>=sectionTop)current=section.getAttribute("id");});navLinks.forEach(link=>link.classList.remove("active"));navLinks.forEach(link=>{if(link.getAttribute("href").includes(current))link.classList.add("active");});});
-function animateSkills(){document.querySelectorAll('.skill-chart').forEach(skill=>{const circle=skill.querySelector('circle:nth-child(2)');const percent=skill.getAttribute('data-percent');const offset=314-(314*percent/100);circle.style.strokeDashoffset=offset;});}
+window.addEventListener("scroll",()=>{
+  let current="";
+  sections.forEach(section=>{
+    const sectionTop=section.offsetTop-80;
+    if(window.pageYOffset>=sectionTop) current=section.getAttribute("id");
+  });
+  navLinks.forEach(link=>link.classList.remove("active"));
+  navLinks.forEach(link=>{ if(link.getAttribute("href").includes(current)) link.classList.add("active"); });
+});
+
+// Animate skills
+function animateSkills(){
+  document.querySelectorAll('.skill-chart').forEach(skill=>{
+    const circle=skill.querySelector('circle:nth-child(2)');
+    const percent=skill.getAttribute('data-percent');
+    const offset=314-(314*percent/100);
+    circle.style.strokeDashoffset=offset;
+  });
+}
 const skillsSection=document.getElementById('skills');
 let skillsAnimated=false;
-window.addEventListener('scroll',()=>{if(skillsAnimated)return;const sectionTop=skillsSection.offsetTop-window.innerHeight+100;if(window.scrollY>sectionTop){animateSkills();skillsAnimated=true;}});
-document.querySelector(".cv-btn").addEventListener("click",()=>{const drop=document.querySelector(".cv-dropdown");drop.style.display=drop.style.display==="block"?"none":"block";});
-document.addEventListener("click",(e)=>{if(!e.target.closest(".download-cv")){document.querySelector(".cv-dropdown").style.display="none";}});
+window.addEventListener('scroll',()=>{
+  if(skillsAnimated) return;
+  const sectionTop=skillsSection.offsetTop-window.innerHeight+100;
+  if(window.scrollY>sectionTop){ animateSkills(); skillsAnimated=true; }
+});
+
+// CV dropdown
+document.querySelector(".cv-btn").addEventListener("click",()=>{
+  const drop=document.querySelector(".cv-dropdown");
+  drop.style.display=drop.style.display==="block"?"none":"block";
+});
+document.addEventListener("click",(e)=>{
+  if(!e.target.closest(".download-cv")){
+    document.querySelector(".cv-dropdown").style.display="none";
+  }
+});
 </script>
 </body>
 </html>
