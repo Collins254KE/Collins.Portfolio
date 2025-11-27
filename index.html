@@ -6,6 +6,7 @@
 <title>Collins Kiprotich – Software Engineer Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto',sans-serif; }
   body { line-height:1.6; color:#333; background:#f9f9f9; transition:0.3s; }
@@ -32,7 +33,6 @@
   .header-photo img { width:150px; height:150px; border-radius:50%; object-fit:cover; border:4px solid #fff; }
   .header-text h1 { font-size:2.5rem; margin-bottom:10px; }
   .header-text p { font-size:1.2rem; margin-bottom:20px; }
-
   nav a { margin:0 15px; color:#fff; font-weight:500; transition:0.3s; }
   nav a.active { color:#ffdd57; font-weight:bold; }
   nav a:hover { color:#ffdd57; }
@@ -41,26 +41,8 @@
   .download-cv { position:relative; display:inline-block; margin-top:15px; }
   .cv-btn { padding:10px 20px; background:#ffdd57; color:#333; font-weight:bold; border-radius:5px; cursor:pointer; border:none; }
   .cv-btn:hover { background:#1a73e8; color:#fff; }
-  
-  .cv-dropdown {
-    display:none;
-    position:absolute;
-    background:#fff;
-    border-radius:6px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    overflow:hidden;
-    width:160px;
-    text-align:left;
-    margin-top:5px;
-    z-index:2000;
-  }
-
-  .cv-dropdown a {
-    display:block;
-    padding:10px 15px;
-    color:#333;
-    font-size:0.9rem;
-  }
+  .cv-dropdown { display:none; position:absolute; background:#fff; border-radius:6px; box-shadow:0 4px 10px rgba(0,0,0,0.1); overflow:hidden; width:160px; text-align:left; margin-top:5px; z-index:2000; }
+  .cv-dropdown a { display:block; padding:10px 15px; color:#333; font-size:0.9rem; }
   .cv-dropdown a:hover { background:#f2f2f2; }
 
   /* Sections */
@@ -91,6 +73,9 @@
 
   /* Footer */
   footer { text-align:center; padding:20px 0; background:#333; color:#fff; }
+  footer .social-icons { margin-top:10px; }
+  footer .social-icons a { color:#fff; margin:0 10px; font-size:1.2rem; transition:0.3s; }
+  footer .social-icons a:hover { color:#ffdd57; }
 
   /* Back to Top */
   #backToTop { position:fixed; bottom:30px; right:30px; background:#1a73e8; color:#fff; border:none; padding:10px 15px; border-radius:50%; cursor:pointer; display:none; font-size:18px; z-index:100; transition:0.3s; }
@@ -112,7 +97,6 @@
   }
 </style>
 </head>
-
 <body class="loading">
 
 <!-- Preloader -->
@@ -130,15 +114,12 @@
     <div class="header-text">
       <h1>Collins Kiprotich</h1>
       <p>Software Engineer | Web Developer | AI & Data Enthusiast</p>
-
       <nav>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
       </nav>
-
-      <!-- NEW CV DROPDOWN -->
       <div class="download-cv">
         <button class="cv-btn">Download CV ▼</button>
         <div class="cv-dropdown">
@@ -146,13 +127,11 @@
           <a href="files/Collins_Kiprotich_CV.docx" download>Download Word</a>
         </div>
       </div>
-
     </div>
   </div>
 </header>
 
 <main class="container">
-
   <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
     <p>I am a Software Engineer with a BSc in Software Engineering. I specialize in web development, database design, and data-driven applications. Passionate about creating scalable solutions and optimizing workflows.</p>
@@ -161,52 +140,33 @@
   <section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
     <div class="skills-grid">
-      <div class="skill-chart" data-percent="95">
-        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
-        <div class="skill-label">HTML</div>
-      </div>
-
-      <div class="skill-chart" data-percent="90">
-        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
-        <div class="skill-label">CSS</div>
-      </div>
-
-      <div class="skill-chart" data-percent="85">
-        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
-        <div class="skill-label">JavaScript</div>
-      </div>
-
-      <div class="skill-chart" data-percent="75">
-        <svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg>
-        <div class="skill-label">PHP</div>
-      </div>
+      <div class="skill-chart" data-percent="95"><svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg><div class="skill-label">HTML</div></div>
+      <div class="skill-chart" data-percent="90"><svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg><div class="skill-label">CSS</div></div>
+      <div class="skill-chart" data-percent="85"><svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg><div class="skill-label">JavaScript</div></div>
+      <div class="skill-chart" data-percent="75"><svg><circle cx="60" cy="60" r="50"></circle><circle cx="60" cy="60" r="50"></circle></svg><div class="skill-label">PHP</div></div>
     </div>
   </section>
 
   <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
     <div class="projects-grid">
-
       <div class="project-card">
         <h3>E-Recruitment Portal</h3>
         <p>Digital portal with structured forms and MySQL backend for HR data collection.</p>
         <a href="https://orpp-e-recruitment-portal-1-2uo4.onrender.com/" target="_blank">View Project</a>
         <a href="#" target="_blank">Code</a>
       </div>
-
       <div class="project-card">
         <h3>Customer Management System</h3>
         <p>MySQL-based system for customer data tracking and reporting.</p>
         <a href="#" target="_blank">View Project</a>
         <a href="#" target="_blank">Code</a>
       </div>
-
       <div class="project-card">
         <h3>Heart Disease Dataset Analysis</h3>
         <p>Data cleaning, validation, and preparation for ML model testing.</p>
         <a href="#" target="_blank">View Analysis</a>
       </div>
-
     </div>
   </section>
 
@@ -219,113 +179,42 @@
       <button type="submit">Send Message</button>
     </form>
   </section>
-
 </main>
 
 <footer>
   <p>&copy; 2025 Collins Kiprotich</p>
+  <div class="social-icons">
+    <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="mailto:collinskiprotich2018@gmail.com"><i class="fas fa-envelope"></i></a>
+  </div>
 </footer>
 
 <button id="backToTop">↑</button>
 <button id="themeToggle" style="position:fixed;bottom:30px;left:30px;background:#1a73e8;color:#fff;border:none;padding:10px 15px;border-radius:50%;cursor:pointer;z-index:100;">🌙</button>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
 <script>
-  AOS.init({ duration:1000 });
-
-  // Preloader letters
-  const name = "Collins Kiprotich";
-  const preloaderText = document.getElementById("preloader-text");
-  preloaderText.innerHTML = name
-    .split("")
-    .map((c,i)=>`<span class="letter" style="animation-delay:${i*0.1}s">${c}</span>`)
-    .join("");
-
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const preloader = document.getElementById("preloader");
-      preloader.style.opacity = 0;
-      document.body.classList.remove("loading");
-      setTimeout(()=>preloader.style.display="none",500);
-
-      const headerElements = [
-        ".header-photo",
-        ".header-text h1",
-        ".header-text p",
-        ".header-text nav",
-        ".download-cv"
-      ];
-
-      headerElements.forEach((el,i)=> 
-        setTimeout(()=> document.querySelector(el).classList.add("fade-in"), 
-        100+i*300)
-      );
-
-    },2500);
-  });
-
-  // Back to Top
-  const btn = document.getElementById("backToTop");
-  window.onscroll = () => { btn.style.display = window.scrollY>300 ? "block":"none"; };
-  btn.onclick = () => window.scrollTo({top:0,behavior:"smooth"});
-
-  // Dark Mode
-  const themeToggle = document.getElementById("themeToggle");
-  themeToggle.onclick = () => document.body.classList.toggle("dark-mode");
-
-  // Scroll nav highlight
-  const sections = document.querySelectorAll("section");
-  const navLinks = document.querySelectorAll("nav a");
-  window.addEventListener("scroll", () => {
-    let current="";
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 80;
-      if(window.pageYOffset>=sectionTop) current=section.getAttribute("id");
-    });
-    navLinks.forEach(link=>link.classList.remove("active"));
-    navLinks.forEach(link=>{
-      if(link.getAttribute("href").includes(current))
-        link.classList.add("active");
-    });
-  });
-
-  // Skill animations
-  function animateSkills(){
-    document.querySelectorAll('.skill-chart').forEach(skill=>{
-      const circle = skill.querySelector('circle:nth-child(2)');
-      const percent = skill.getAttribute('data-percent');
-      const offset = 314 - (314*percent/100);
-      circle.style.strokeDashoffset = offset;
-    });
-  }
-
-  const skillsSection = document.getElementById('skills');
-  let skillsAnimated = false;
-
-  window.addEventListener('scroll', ()=>{
-    if(skillsAnimated) return;
-    const sectionTop = skillsSection.offsetTop - window.innerHeight + 100;
-    if(window.scrollY > sectionTop){ 
-      animateSkills(); 
-      skillsAnimated=true; 
-    }
-  });
-
-  // CV Dropdown
-  document.querySelector(".cv-btn").addEventListener("click", () => {
-    const drop = document.querySelector(".cv-dropdown");
-    drop.style.display = drop.style.display === "block" ? "none" : "block";
-  });
-
-  // Close dropdown on outside click
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".download-cv")) {
-      document.querySelector(".cv-dropdown").style.display = "none";
-    }
-  });
-
+AOS.init({ duration:1000 });
+const name="Collins Kiprotich";
+const preloaderText=document.getElementById("preloader-text");
+preloaderText.innerHTML=name.split("").map((c,i)=>`<span class="letter" style="animation-delay:${i*0.1}s">${c}</span>`).join("");
+window.addEventListener("load",()=>{setTimeout(()=>{const preloader=document.getElementById("preloader");preloader.style.opacity=0;document.body.classList.remove("loading");setTimeout(()=>preloader.style.display="none",500);const headerElements=[".header-photo",".header-text h1",".header-text p",".header-text nav",".download-cv"];headerElements.forEach((el,i)=>setTimeout(()=>document.querySelector(el).classList.add("fade-in"),100+i*300));},2500);});
+const btn=document.getElementById("backToTop");
+window.onscroll=()=>{btn.style.display=window.scrollY>300?"block":"none";};
+btn.onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+const themeToggle=document.getElementById("themeToggle");
+themeToggle.onclick=()=>document.body.classList.toggle("dark-mode");
+const sections=document.querySelectorAll("section");
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{let current="";sections.forEach(section=>{const sectionTop=section.offsetTop-80;if(window.pageYOffset>=sectionTop)current=section.getAttribute("id");});navLinks.forEach(link=>link.classList.remove("active"));navLinks.forEach(link=>{if(link.getAttribute("href").includes(current))link.classList.add("active");});});
+function animateSkills(){document.querySelectorAll('.skill-chart').forEach(skill=>{const circle=skill.querySelector('circle:nth-child(2)');const percent=skill.getAttribute('data-percent');const offset=314-(314*percent/100);circle.style.strokeDashoffset=offset;});}
+const skillsSection=document.getElementById('skills');
+let skillsAnimated=false;
+window.addEventListener('scroll',()=>{if(skillsAnimated)return;const sectionTop=skillsSection.offsetTop-window.innerHeight+100;if(window.scrollY>sectionTop){animateSkills();skillsAnimated=true;}});
+document.querySelector(".cv-btn").addEventListener("click",()=>{const drop=document.querySelector(".cv-dropdown");drop.style.display=drop.style.display==="block"?"none":"block";});
+document.addEventListener("click",(e)=>{if(!e.target.closest(".download-cv")){document.querySelector(".cv-dropdown").style.display="none";}});
 </script>
-
 </body>
 </html>
